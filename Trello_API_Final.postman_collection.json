@@ -1,0 +1,974 @@
+{
+	"info": {
+		"_postman_id": "46c37ab0-28e6-49d9-8f8f-f4e31a7cc82c",
+		"name": "Trello_API_Final",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39855460"
+	},
+	"item": [
+		{
+			"name": "Boards management",
+			"item": [
+				{
+					"name": "Create Board",
+					"item": [
+						{
+							"name": "Valid Create board",
+							"item": [
+								{
+									"name": "Valid Create Board",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response contains name\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"name\");\r",
+													"});\r",
+													"\r",
+													"\r",
+													"var jsonData = pm.response.json();\r",
+													"pm.collectionVariables.set(\"id\",jsonData.id);\r",
+													"\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/?name=ranaa&key={{API_KEY}}&token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												""
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "ranaa"
+												},
+												{
+													"key": "key",
+													"value": "{{API_KEY}}"
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Invalid Create Board",
+							"item": [
+								{
+									"name": "Invalid Create Board",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Error message is about missing name\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"message\").that.includes(\"name\");\r",
+													"});\r",
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/?key={{API_KEY}}&token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												""
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "RanaAdel",
+													"disabled": true
+												},
+												{
+													"key": "key",
+													"value": "{{API_KEY}}"
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Update Board",
+					"item": [
+						{
+							"name": "Valid Update board",
+							"item": [
+								{
+									"name": "Valid UpdateBoardById",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													"pm.test(\"Response contains name\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData).to.have.property(\"name\");\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"idOrganization\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/{{id}}?name=NewRana&key={{API_KEY}}&token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"{{id}}"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "NewRana"
+												},
+												{
+													"key": "key",
+													"value": "{{API_KEY}}"
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Invalid update board",
+							"item": [
+								{
+									"name": "Invalid UpdateBoardById Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Key value is missing\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"invalid key\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/{{id}}?token={{API_Token}}&id=6785642954a523807def0bfd",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"{{id}}"
+											],
+											"query": [
+												{
+													"key": "key",
+													"value": "{{API_KEY}}",
+													"disabled": true
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												},
+												{
+													"key": "id",
+													"value": "6785642954a523807def0bfd"
+												},
+												{
+													"key": "name",
+													"value": "RanaBoard",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get membership (extra)",
+					"item": [
+						{
+							"name": "Valid get membership",
+							"item": [
+								{
+									"name": "Valid Get membership",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"idMember\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/{{id}}/memberships?key={{API_KEY}}&token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"{{id}}",
+												"memberships"
+											],
+											"query": [
+												{
+													"key": "key",
+													"value": "{{API_KEY}}"
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Invalid get membership",
+							"item": [
+								{
+									"name": "Invalid Get Membership",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400 for invalid API key\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Body matches string that there is invalid id \", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"invalid id\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/12345/memberships?key={{API_KEY}}&token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"12345",
+												"memberships"
+											],
+											"query": [
+												{
+													"key": "key",
+													"value": "{{API_KEY}}"
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Add member",
+					"item": [
+						{
+							"name": "Valid add member",
+							"item": [
+								{
+									"name": "Valid Add member to board",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response contains members with valid IDs\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(jsonData).to.have.property(\"members\");\r",
+													"    pm.expect(jsonData.members).to.be.an(\"array\").that.is.not.empty;\r",
+													"\r",
+													" //iteration on id \r",
+													"    jsonData.members.forEach(member => {\r",
+													"        pm.expect(member).to.have.property(\"id\").that.is.a(\"string\").and.is.not.empty;\r",
+													"    });\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/{{id}}/members/67855a5fc0c499ab19f5ed3a?type=admin&key={{API_KEY}}&token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"{{id}}",
+												"members",
+												"67855a5fc0c499ab19f5ed3a"
+											],
+											"query": [
+												{
+													"key": "type",
+													"value": "admin"
+												},
+												{
+													"key": "key",
+													"value": "{{API_KEY}}"
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Invalid add member",
+							"item": [
+								{
+									"name": "Invalid Add member to board Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400 for invalid board ID\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Body matches string that there is invalid id \", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"invalid id\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/678564/members/67855a5fc0c499ab19f5ed3a?type=normal&key={{API_KEY}}&token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"678564",
+												"members",
+												"67855a5fc0c499ab19f5ed3a"
+											],
+											"query": [
+												{
+													"key": "type",
+													"value": "normal"
+												},
+												{
+													"key": "key",
+													"value": "{{API_KEY}}"
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get members of board",
+					"item": [
+						{
+							"name": "Valid get members",
+							"item": [
+								{
+									"name": "Valid Get members of board",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response contains an array with objects having 'id'\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"\r",
+													"    // Ensure the response is an array\r",
+													"    pm.expect(jsonData).to.be.an(\"array\").that.is.not.empty;\r",
+													"\r",
+													"    // Check each object in the array for the 'id' property\r",
+													"    jsonData.forEach(item => {\r",
+													"        pm.expect(item).to.have.property(\"id\").that.is.a(\"string\").and.is.not.empty;\r",
+													"    });\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/{{id}}/members?key={{API_KEY}}&token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"{{id}}",
+												"members"
+											],
+											"query": [
+												{
+													"key": "key",
+													"value": "{{API_KEY}}"
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Invalid Get members",
+							"item": [
+								{
+									"name": "Invalid Get members of board Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400 for invalid board ID\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"pm.test(\"Body matches string that there is invalid id \", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"invalid id\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/678564/members?key={{API_KEY}}&token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"678564",
+												"members"
+											],
+											"query": [
+												{
+													"key": "key",
+													"value": "{{API_KEY}}"
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Remove member from board",
+					"item": [
+						{
+							"name": "Valid Remove member",
+							"item": [
+								{
+									"name": "Valid remove member from board",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response contains an 'id' field\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"\r",
+													"    // Check that the 'id' field exists and is a non-empty string\r",
+													"    pm.expect(jsonData).to.have.property(\"id\").that.is.a(\"string\").and.is.not.empty;\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/{{id}}/members/67855a5fc0c499ab19f5ed3a?key={{API_KEY}}&token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"{{id}}",
+												"members",
+												"67855a5fc0c499ab19f5ed3a"
+											],
+											"query": [
+												{
+													"key": "key",
+													"value": "{{API_KEY}}"
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Invalid remove member",
+							"item": [
+								{
+									"name": "Invalid remove member from board Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													"pm.test(\"Status code is 401 for invalid member ID\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Body matches string that there is no membership \", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"membership not found\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/{{id}}/members/67855a5fa?key={{API_KEY}}&token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"{{id}}",
+												"members",
+												"67855a5fa"
+											],
+											"query": [
+												{
+													"key": "key",
+													"value": "{{API_KEY}}"
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Delete Board",
+					"item": [
+						{
+							"name": "Valid delete board",
+							"item": [
+								{
+									"name": "valid delete board",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Board deleted succussfully\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"null\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/{{id}}?key={{API_KEY}}&token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"{{id}}"
+											],
+											"query": [
+												{
+													"key": "key",
+													"value": "{{API_KEY}}"
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Invalid delete board",
+							"item": [
+								{
+									"name": "Invalid delete board Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401 for invalid API key\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Body matches string that there is invalid key \", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"invalid key\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/{{id}}?token={{API_Token}}",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"{{id}}"
+											],
+											"query": [
+												{
+													"key": "key",
+													"value": "{{API_KEY}}",
+													"disabled": true
+												},
+												{
+													"key": "token",
+													"value": "{{API_Token}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_KEY",
+			"value": "ee7dac41bf25c985f072f54654bb2965",
+			"type": "string"
+		},
+		{
+			"key": "API_Token",
+			"value": "ATTAae5b8e48b4274cd329da32d95ffcd1f993056e670f4bafc1b482ed2206c2a2290B85E669",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "url",
+			"value": "https://api.trello.com/1/boards",
+			"type": "string"
+		}
+	]
+}
